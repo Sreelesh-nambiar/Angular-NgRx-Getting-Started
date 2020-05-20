@@ -19,6 +19,7 @@ export interface ProductState {
 
 export function reducer(state = iniitialState, action: ProductActions): ProductState {
   switch (action.type) {
+
     case ProductActionType.ToggleProductCode:
       return {
         ...state,
@@ -58,7 +59,6 @@ export function reducer(state = iniitialState, action: ProductActions): ProductS
       }
 
     case ProductActionType.UpdateProductSuccess:
-
       const updatedProducts = state.products.map(
         item => action.payload.id == item.id ? action.payload : item);
 
@@ -75,22 +75,22 @@ export function reducer(state = iniitialState, action: ProductActions): ProductS
                 error: action.payload
         }
 
-        case ProductActionType.CreateProductSuccess:
-            return {
+    case ProductActionType.CreateProductSuccess:
+        return {
               ...state,
               products: [...state.products, action.payload],
               currentProductId: action.payload.id,
               error: ''
             };
       
-          case ProductActionType.CreateProductFail:
+    case ProductActionType.CreateProductFail:
             return {
               ...state,
               error: action.payload
             };
       
           // After a delete, the currentProduct is null.
-          case ProductActionType.DeleteProductSuccess:
+    case ProductActionType.DeleteProductSuccess:
             return {
               ...state,
               products: state.products.filter(product => product.id !== action.payload),
@@ -98,14 +98,14 @@ export function reducer(state = iniitialState, action: ProductActions): ProductS
               error: ''
             };
       
-          case ProductActionType.DeleteProductFail:
+    case ProductActionType.DeleteProductFail:
             return {
               ...state,
               error: action.payload
             };
       
 
-            default:
-              return state;
+    default:
+        return state;
   }
 }
